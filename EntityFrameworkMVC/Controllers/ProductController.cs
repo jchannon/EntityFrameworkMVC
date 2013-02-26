@@ -44,12 +44,12 @@ namespace EntityFrameworkMVC.Controllers
         // POST: /Product/Create
 
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(Product product)
         {
             try
             {
-                // TODO: Add insert logic here
-
+                productRepository.Add(product);
+                productRepository.Save();
                 return RedirectToAction("Index");
             }
             catch

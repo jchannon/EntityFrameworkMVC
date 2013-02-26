@@ -17,7 +17,7 @@
         public void Add(T entity)
         {
             entitySet.Add(entity);
-            unitOfWork.SaveChanges();
+            
         }
 
         public void Delete(T entity)
@@ -33,6 +33,11 @@
         public void Update(T entity)
         {
             throw new System.NotImplementedException();
+        }
+
+        public void Save()
+        {
+            unitOfWork.SaveChanges();
         }
 
         public T FetchById(object id)
