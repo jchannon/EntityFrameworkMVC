@@ -7,17 +7,9 @@
 
     public class HomeController : Controller
     {
-        private readonly IProductRepository productRepository;
-
-        public HomeController(IProductRepository productRepository)
-        {
-            this.productRepository = productRepository;
-        }
-
         public ActionResult Index()
         {
-            IEnumerable<Product> model = productRepository.Get();
-            return View("Index", model);
+            return View("Index");
         }
     }
 }

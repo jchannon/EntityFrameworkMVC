@@ -14,11 +14,11 @@
                                                    "] SET SINGLE_USER WITH ROLLBACK IMMEDIATE");
                 context.Database.ExecuteSqlCommand("USE master DROP DATABASE [" + context.Database.Connection.Database +
                                                    "]");
-                context.Database.Delete();
+                //context.Database.Delete();
             }
 
             context.Database.Create();
-
+            
             Seed(context);
         }
 

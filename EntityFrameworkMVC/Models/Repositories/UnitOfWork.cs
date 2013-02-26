@@ -1,5 +1,6 @@
 ﻿namespace EntityFrameworkMVC.Models.Repositories
 {
+    using System.Data.Entity;
     using EntityFrameworkMVC.Models.EF;
 
     public class UnitOfWork : IUnitOfWork
@@ -11,14 +12,20 @@
             this.dbContext = dbContext;
         }
 
-        public EntityFrameworkMvcDbContext DbContext
+        public void SaveChanges()
         {
-            get { return dbContext; }
+            dbContext.SaveChanges();
+        }
+
+        public DbSet<TEntity> GetEntitySet<TEntity>() where TEntity : class
+        {
+            return dbContext.Set<TEntity>();
         }
     }
 
     public interface IUnitOfWork
     {
-        EntityFrameworkMvcDbContext DbContext { get; }
+        void SaveChanges();
+        DbSet<TEntity> GetEntitySet<TEntity>() where TEntity : class;
     }
 }
