@@ -11,16 +11,16 @@ namespace EntityFrameworkMVC.Controllers
 
     public class CustomerController : Controller
     {
-        private readonly IRepository<Customer> customerRepository;
+        private readonly IUnitOfWork unitOfWork;
 
-        public CustomerController(IRepository<Customer> customerRepository)
+        public CustomerController(IUnitOfWork unitOfWork)
         {
-            this.customerRepository = customerRepository;
+            this.unitOfWork = unitOfWork;
         }
 
         public ActionResult Index()
         {
-            var model = customerRepository.Fetch();
+            var model = unitOfWork.customerRepository.Fetch();
             return View("Index", model);
         }
 
@@ -48,8 +48,8 @@ namespace EntityFrameworkMVC.Controllers
         {
             try
             {
-                customerRepository.Add(customer);
-                customerRepository.Save();
+                unitOfWork.customerRepository.Add(customer);
+                unitOfWork.SaveChanges();
                 return RedirectToAction("Index");
             }
             catch

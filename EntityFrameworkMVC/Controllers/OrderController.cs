@@ -11,18 +11,16 @@ namespace EntityFrameworkMVC.Controllers
 
     public class OrderController : Controller
     {
-        private readonly IRepository<Order> orderRepository;
-        private readonly IRepository<Customer> customerRepository;
+        private readonly IUnitOfWork unitOfWork;
 
-        public OrderController(IRepository<Order> orderRepository, IRepository<Customer> customerRepository )
+        public OrderController(IUnitOfWork unitOfWork )
         {
-            this.orderRepository = orderRepository;
-            this.customerRepository = customerRepository;
+            this.unitOfWork = unitOfWork;
         }
 
         public ActionResult Index()
         {
-            var model = orderRepository.Fetch();
+            var model = unitOfWork.orderRepository.Fetch();
             return View("Index", model);
         }
 
@@ -39,7 +37,7 @@ namespace EntityFrameworkMVC.Controllers
 
         public ActionResult Create()
         {
-            var customers = customerRepository.Fetch().ToList();
+            var customers = unitOfWork.customerRepository.Fetch().ToList();
             var order = new Order();
             var model = new OrderCustomer()
                             {
@@ -65,10 +63,10 @@ namespace EntityFrameworkMVC.Controllers
         {
             try
             {
-                var customer = customerRepository.FetchById(int.Parse(collection["Customer"]));
+                var customer = unitOfWork.customerRepository.FetchById(int.Parse(collection["Customer"]));
                 order.Customer = customer;
-                orderRepository.Add(order);
-                orderRepository.Save();
+                unitOfWork.orderRepository.Add(order);
+                unitOfWork.SaveChanges();
 
                 return RedirectToAction("Index");
             }

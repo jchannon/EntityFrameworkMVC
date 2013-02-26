@@ -11,16 +11,16 @@ namespace EntityFrameworkMVC.Controllers
 
     public class ProductController : Controller
     {
-        private readonly IRepository<Product> productRepository;
+        private readonly IUnitOfWork unitOfWork;
 
-        public ProductController(IRepository<Product> productRepository)
+        public ProductController(IUnitOfWork unitOfWork)
         {
-            this.productRepository = productRepository;
+            this.unitOfWork = unitOfWork;
         }
 
         public ActionResult Index()
         {
-            var model = productRepository.Fetch();
+            var model = unitOfWork.productRepository.Fetch();
             return View("Index", model);
         }
 
@@ -48,8 +48,8 @@ namespace EntityFrameworkMVC.Controllers
         {
             try
             {
-                productRepository.Add(product);
-                productRepository.Save();
+                unitOfWork.productRepository.Add(product);
+                unitOfWork.SaveChanges();
                 return RedirectToAction("Index");
             }
             catch

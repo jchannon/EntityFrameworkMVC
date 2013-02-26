@@ -35,11 +35,6 @@
             throw new System.NotImplementedException();
         }
 
-        public void Save()
-        {
-            context.SaveChanges();
-        }
-
         public T FetchById(int id)
         {
             return dbSet.Find(id);
