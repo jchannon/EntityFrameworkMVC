@@ -2,22 +2,22 @@
 {
     using System.Data.Entity;
     using System.Linq;
+    using EF;
 
     public class Repository<T> : IRepository<T> where T : class
     {
-        private readonly IUnitOfWork unitOfWork;
-        private readonly DbSet<T> entitySet;
+        private readonly EntityFrameworkMvcDbContext context;
+        private readonly DbSet<T> dbSet;
 
-        public Repository(IUnitOfWork unitOfWork)
+        public Repository(EntityFrameworkMvcDbContext context)
         {
-            this.unitOfWork = unitOfWork;
-            entitySet = unitOfWork.GetEntitySet<T>();
+            this.context = context;
+            this.dbSet = context.Set<T>();
         }
 
         public void Add(T entity)
         {
-            entitySet.Add(entity);
-            
+            dbSet.Add(entity);
         }
 
         public void Delete(T entity)
@@ -37,17 +37,17 @@
 
         public void Save()
         {
-            unitOfWork.SaveChanges();
+            context.SaveChanges();
         }
 
         public T FetchById(int id)
         {
-            return entitySet.Find(id);
+            return dbSet.Find(id);
         }
 
         public IQueryable<T> Fetch()
         {
-            return entitySet;
+            return dbSet;
         }
     }
 }
