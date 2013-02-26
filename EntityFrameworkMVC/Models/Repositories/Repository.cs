@@ -25,7 +25,7 @@
             throw new System.NotImplementedException();
         }
 
-        public void Delete(object id)
+        public void Delete(int id)
         {
             throw new System.NotImplementedException();
         }
@@ -40,9 +40,9 @@
             unitOfWork.SaveChanges();
         }
 
-        public T FetchById(object id)
+        public T FetchById(int id)
         {
-            throw new System.NotImplementedException();
+            return entitySet.Find(id);
         }
 
         public IQueryable<T> Fetch()

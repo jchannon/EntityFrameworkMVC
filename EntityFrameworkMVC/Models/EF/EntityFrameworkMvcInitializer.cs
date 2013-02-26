@@ -14,11 +14,12 @@
                                                    "] SET SINGLE_USER WITH ROLLBACK IMMEDIATE");
                 context.Database.ExecuteSqlCommand("USE master DROP DATABASE [" + context.Database.Connection.Database +
                                                    "]");
-                //context.Database.Delete();
+                context.Database.Connection.Close();
+                context.Database.Connection.Open();
             }
 
             context.Database.Create();
-            
+
             Seed(context);
         }
 
@@ -79,7 +80,7 @@
                                  new Order
                                      {
                                          ID = 1,
-                                         CustomerID = 1,
+                                         Customer = context.Customers.FirstOrDefault(x => x.ID == 1),
                                          OrderDate = new DateTime(2013, 1, 2),
                                          ShippingAmount = 5,
                                          Products = context.Products.Where(x => x.ID == 1).ToList()
@@ -87,7 +88,7 @@
                                  new Order
                                      {
                                          ID = 2,
-                                         CustomerID = 2,
+                                         Customer = context.Customers.FirstOrDefault(x => x.ID == 2),
                                          OrderDate = new DateTime(2013, 2, 26),
                                          Products = context.Products.Where(x => x.ID == 1 || x.ID == 2).ToList()
                                      }

@@ -12,10 +12,12 @@ namespace EntityFrameworkMVC.Controllers
     public class OrderController : Controller
     {
         private readonly IRepository<Order> orderRepository;
+        private readonly IRepository<Customer> customerRepository;
 
-        public OrderController(IRepository<Order> orderRepository)
+        public OrderController(IRepository<Order> orderRepository, IRepository<Customer> customerRepository )
         {
             this.orderRepository = orderRepository;
+            this.customerRepository = customerRepository;
         }
 
         public ActionResult Index()
@@ -37,18 +39,36 @@ namespace EntityFrameworkMVC.Controllers
 
         public ActionResult Create()
         {
-            return View();
+            var customers = customerRepository.Fetch().ToList();
+            var order = new Order();
+            var model = new OrderCustomer()
+                            {
+                                Customers =
+                                    customers.Select(
+                                        x =>
+                                        new SelectListItem()
+                                            {
+                                                Text = x.FirstName,
+                                                Value = x.ID.ToString()
+                                            }),
+                                Order = order
+                            };
+
+            return View("Create", model);
         }
 
         //
         // POST: /Order/Create
 
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(Order order, FormCollection collection)
         {
             try
             {
-                // TODO: Add insert logic here
+                var customer = customerRepository.FetchById(int.Parse(collection["Customer"]));
+                order.Customer = customer;
+                orderRepository.Add(order);
+                orderRepository.Save();
 
                 return RedirectToAction("Index");
             }

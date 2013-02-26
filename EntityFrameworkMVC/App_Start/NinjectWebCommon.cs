@@ -8,6 +8,7 @@ namespace EntityFrameworkMVC.App_Start
     using Controllers;
     using Microsoft.Web.Infrastructure.DynamicModuleHelper;
     using Models;
+    using Models.EF;
     using Models.Repositories;
     using Ninject;
     using Ninject.Web.Common;
@@ -59,6 +60,8 @@ namespace EntityFrameworkMVC.App_Start
             kernel.Bind<IRepository<Customer>>().To<Repository<Customer>>();
             kernel.Bind<IRepository<Order>>().To<Repository<Order>>();
             kernel.Bind<IRepository<Product>>().To<Repository<Product>>();
+
+           
         }        
     }
 }

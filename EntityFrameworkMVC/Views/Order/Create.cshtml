@@ -1,0 +1,108 @@
+﻿@model EntityFrameworkMVC.Models.OrderCustomer
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/_Layout.cshtml";
+}
+
+<h2>Create</h2>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Order</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Order.OrderDate)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Order.OrderDate)
+            @Html.ValidationMessageFor(model => model.Order.OrderDate)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Order.DueDate)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Order.DueDate)
+            @Html.ValidationMessageFor(model => model.Order.DueDate)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Order.ShipDate)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Order.ShipDate)
+            @Html.ValidationMessageFor(model => model.Order.ShipDate)
+        </div>
+
+    <div class="editor-label">
+            @Html.LabelFor(model => model.Order.BillToAddressID)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Order.BillToAddressID)
+            @Html.ValidationMessageFor(model => model.Order.BillToAddressID)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Order.ShipToAddressID)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Order.ShipToAddressID)
+            @Html.ValidationMessageFor(model => model.Order.ShipToAddressID)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Order.SubTotal)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Order.SubTotal)
+            @Html.ValidationMessageFor(model => model.Order.SubTotal)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Order.TaxAmt)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Order.TaxAmt)
+            @Html.ValidationMessageFor(model => model.Order.TaxAmt)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Order.ShippingAmount)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Order.ShippingAmount)
+            @Html.ValidationMessageFor(model => model.Order.ShippingAmount)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Order.TotalDue)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Order.TotalDue)
+            @Html.ValidationMessageFor(model => model.Order.TotalDue)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Order.Comment)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Order.Comment)
+            @Html.ValidationMessageFor(model => model.Order.Comment)
+        </div>
+        
+        @Html.DropDownList("Customer", Model.Customers)
+
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+

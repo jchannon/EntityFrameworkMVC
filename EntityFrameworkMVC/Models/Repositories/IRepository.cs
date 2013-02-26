@@ -6,10 +6,10 @@
     {
         void Add(T entity);
         void Delete(T entity);
-        void Delete(object id);
+        void Delete(int id);
         void Update(T entity);
         void Save();
-        T FetchById(object id);
+        T FetchById(int id);
         IQueryable<T> Fetch();
     }
 }

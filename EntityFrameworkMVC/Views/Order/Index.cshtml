@@ -22,7 +22,7 @@
             @Html.DisplayNameFor(model => model.ShipDate)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.CustomerID)
+            @Html.DisplayNameFor(model => model.Customer)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.BillToAddressID)
@@ -60,7 +60,7 @@
             @Html.DisplayFor(modelItem => item.ShipDate)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.CustomerID)
+            @item.Customer.FirstName @item.Customer.LastName
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.BillToAddressID)
