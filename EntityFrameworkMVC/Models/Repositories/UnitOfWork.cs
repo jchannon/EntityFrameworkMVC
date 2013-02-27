@@ -1,15 +1,18 @@
 ﻿namespace EntityFrameworkMVC.Models.Repositories
 {
     using System.Data.Entity;
+    using System.Linq;
     using EntityFrameworkMVC.Models.EF;
 
     public class UnitOfWork : IUnitOfWork
     {
         private readonly EntityFrameworkMvcDbContext dbContext;
+        private readonly IRepoFactory repoFactory;
 
-        public UnitOfWork(EntityFrameworkMvcDbContext dbContext)
+        public UnitOfWork(EntityFrameworkMvcDbContext dbContext, IRepoFactory repoFactory)
         {
             this.dbContext = dbContext;
+            this.repoFactory = repoFactory;
         }
 
         public void SaveChanges()
@@ -17,15 +20,9 @@
             dbContext.SaveChanges();
         }
 
-        public DbSet<TEntity> GetEntitySet<TEntity>() where TEntity : class
+        public Repository<T> GetRepo<T>() where T : class
         {
-            return dbContext.Set<TEntity>();
+            return repoFactory.GetRepo<T>();
         }
-    }
-
-    public interface IUnitOfWork
-    {
-        void SaveChanges();
-        DbSet<TEntity> GetEntitySet<TEntity>() where TEntity : class;
     }
 }

@@ -138,7 +138,10 @@
     </Compile>
     <Compile Include="Models\OrderCustomer.cs" />
     <Compile Include="Models\Product.cs" />
+    <Compile Include="Models\Repositories\IRepoFactory.cs" />
     <Compile Include="Models\Repositories\IRepository.cs" />
+    <Compile Include="Models\Repositories\IUnitOfWork.cs" />
+    <Compile Include="Models\Repositories\RepoFactory.cs" />
     <Compile Include="Models\Repositories\Repository.cs" />
     <Compile Include="Models\Repositories\UnitOfWork.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

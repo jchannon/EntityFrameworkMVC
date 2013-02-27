@@ -8,7 +8,6 @@
         void Delete(T entity);
         void Delete(int id);
         void Update(T entity);
-        void Save();
         T FetchById(int id);
         IQueryable<T> Fetch();
     }
