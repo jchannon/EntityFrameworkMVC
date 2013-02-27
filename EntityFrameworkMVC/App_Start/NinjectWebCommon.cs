@@ -55,7 +55,7 @@ namespace EntityFrameworkMVC.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
-            kernel.Bind<IUnitOfWork>().To<UnitOfWork>().InRequestScope();
+            kernel.Bind<EntityFrameworkMvcDbContext>().ToSelf().InRequestScope();
 
             kernel.Bind<IRepository<Customer>>().To<Repository<Customer>>();
             kernel.Bind<IRepository<Order>>().To<Repository<Order>>();
