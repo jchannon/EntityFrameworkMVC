@@ -57,11 +57,9 @@ namespace EntityFrameworkMVC.App_Start
         {
             kernel.Bind<IUnitOfWork>().To<UnitOfWork>().InRequestScope();
 
-            kernel.Bind<IRepository<Customer>>().To<Repository<Customer>>();
-            kernel.Bind<IRepository<Order>>().To<Repository<Order>>();
-            kernel.Bind<IRepository<Product>>().To<Repository<Product>>();
+            kernel.Bind<EntityFrameworkMvcDbContext>().ToSelf().InRequestScope();
 
-           
+
         }        
     }
 }
