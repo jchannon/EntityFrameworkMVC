@@ -1,38 +1,38 @@
 ﻿namespace EntityFrameworkMVC.Models.Repositories
 {
+    using System.Collections.Generic;
     using System.Data.Entity;
     using EntityFrameworkMVC.Models.EF;
 
     public class UnitOfWork : IUnitOfWork
     {
+
         private readonly EntityFrameworkMvcDbContext dbContext;
 
-        public UnitOfWork(EntityFrameworkMvcDbContext dbContext)
+        public UnitOfWork(EntityFrameworkMvcDbContext dbContext, IRepository<Product> productRepository, IRepository<Customer> customerRepository, IRepository<Order> orderRepository)
         {
             this.dbContext = dbContext;
+            this.OrderRepository = orderRepository;
+            this.ProductRepository = productRepository;
+            this.CustomerRepository = customerRepository;
         }
+        
+        public IRepository<Customer> CustomerRepository { get; private set; }
+        public IRepository<Product> ProductRepository { get; private set; }
+        public IRepository<Order> OrderRepository { get; private set; }
 
         public void SaveChanges()
         {
             dbContext.SaveChanges();
         }
 
-        public IRepository<Customer> customerRepository { get; set; }
-        public IRepository<Product> productRepository { get; set; }
-        public IRepository<Order> orderRepository { get; set; }
-
-        public DbSet<TEntity> GetEntitySet<TEntity>() where TEntity : class
-        {
-            return dbContext.Set<TEntity>();
-        }
     }
 
     public interface IUnitOfWork
     {
         void SaveChanges();
-        IRepository<Customer> customerRepository { get; set; }
-        IRepository<Product> productRepository { get; set; }
-        IRepository<Order> orderRepository { get; set; } 
-        DbSet<TEntity> GetEntitySet<TEntity>() where TEntity : class;
+        IRepository<Customer> CustomerRepository { get; }
+        IRepository<Product> ProductRepository { get; }
+        IRepository<Order> OrderRepository { get; }
     }
 }

@@ -20,7 +20,7 @@ namespace EntityFrameworkMVC.Controllers
 
         public ActionResult Index()
         {
-            var model = unitOfWork.productRepository.Fetch();
+            var model = unitOfWork.ProductRepository.Fetch();
             return View("Index", model);
         }
 
@@ -48,7 +48,7 @@ namespace EntityFrameworkMVC.Controllers
         {
             try
             {
-                unitOfWork.productRepository.Add(product);
+                unitOfWork.ProductRepository.Add(product);
                 unitOfWork.SaveChanges();
                 return RedirectToAction("Index");
             }

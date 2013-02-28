@@ -20,7 +20,7 @@ namespace EntityFrameworkMVC.Controllers
 
         public ActionResult Index()
         {
-            var model = unitOfWork.orderRepository.Fetch();
+            var model = unitOfWork.OrderRepository.Fetch();
             return View("Index", model);
         }
 
@@ -37,7 +37,7 @@ namespace EntityFrameworkMVC.Controllers
 
         public ActionResult Create()
         {
-            var customers = unitOfWork.customerRepository.Fetch().ToList();
+            var customers = unitOfWork.CustomerRepository.Fetch().ToList();
             var order = new Order();
             var model = new OrderCustomer()
                             {
@@ -63,9 +63,9 @@ namespace EntityFrameworkMVC.Controllers
         {
             try
             {
-                var customer = unitOfWork.customerRepository.FetchById(int.Parse(collection["Customer"]));
+                var customer = unitOfWork.CustomerRepository.FetchById(int.Parse(collection["Customer"]));
                 order.Customer = customer;
-                unitOfWork.orderRepository.Add(order);
+                unitOfWork.OrderRepository.Add(order);
                 unitOfWork.SaveChanges();
 
                 return RedirectToAction("Index");
