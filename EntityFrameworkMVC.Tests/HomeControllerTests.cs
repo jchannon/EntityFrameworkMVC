@@ -1,5 +1,6 @@
 ﻿namespace EntityFrameworkMVC.Tests
 {
+    using System.Linq;
     using System.Web.Mvc;
     using Controllers;
     using Models;
@@ -8,34 +9,35 @@
 
     public class HomeControllerTests
     {
-        //[Fact]
-        //public void tewwet()
-        //{
-        //    var productRepository = new Moq.Mock<IProductRepository>();
-        //    productRepository.Setup(x => x.Get())
-        //                     .Returns(new[]
-        //                                  {
-        //                                      new Product()
-        //                                          {
-        //                                              ID = 1,
-        //                                              Title = "iPad",
-        //                                              Description = "Fruit based tablet",
-        //                                              UnitPrice = 450
-        //                                          },
-        //                                      new Product()
-        //                                          {
-        //                                              ID = 2,
-        //                                              Title = "iPhone",
-        //                                              Description = "Fruit based phone",
-        //                                              UnitPrice = 500
-        //                                          }
-        //                                  });
+        [Fact]
+        public void tewwet()
+        {
+            var unitofWork = new Moq.Mock<IUnitOfWork>();
 
-        //    var homeController = new HomeController(productRepository.Object);
+            unitofWork.Setup(x => x.ProductRepository.Fetch()).Returns(new[]
+                                                                           {
+                                                                               new Product()
+                                                                                   {
+                                                                                       ID = 1,
+                                                                                       Title = "iPad",
+                                                                                       Description =
+                                                                                           "Fruit based tablet",
+                                                                                       UnitPrice = 450
+                                                                                   },
+                                                                               new Product()
+                                                                                   {
+                                                                                       ID = 2,
+                                                                                       Title = "iPhone",
+                                                                                       Description = "Fruit based phone",
+                                                                                       UnitPrice = 500
+                                                                                   }
+                                                                           }.AsQueryable());
 
-        //    var result = homeController.Index() as ViewResult;
+            var homeController = new ProductController(unitofWork.Object);
 
-        //    Assert.NotNull(result.Model);
-        //}
+            var result = homeController.Index() as ViewResult;
+
+            Assert.NotNull(result.Model);
+        }
     }
 }
