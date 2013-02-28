@@ -3,6 +3,5 @@
     public interface IUnitOfWork
     {
         void SaveChanges();
-        Repository<T> GetRepo<T>() where T : class;
     }
 }

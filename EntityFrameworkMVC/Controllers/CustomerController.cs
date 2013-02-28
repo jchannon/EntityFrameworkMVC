@@ -14,10 +14,10 @@ namespace EntityFrameworkMVC.Controllers
         private readonly IUnitOfWork unitOfWork;
         private readonly IRepository<Customer> customerRepository;
 
-        public CustomerController(IUnitOfWork unitOfWork)
+        public CustomerController(IUnitOfWork unitOfWork, IRepository<Customer> customerRepository )
         {
             this.unitOfWork = unitOfWork;
-            this.customerRepository = unitOfWork.GetRepo<Customer>();
+            this.customerRepository = customerRepository;
         }
 
         public ActionResult Index()

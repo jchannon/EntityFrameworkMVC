@@ -7,12 +7,10 @@
     public class UnitOfWork : IUnitOfWork
     {
         private readonly EntityFrameworkMvcDbContext dbContext;
-        private readonly IRepoFactory repoFactory;
 
-        public UnitOfWork(EntityFrameworkMvcDbContext dbContext, IRepoFactory repoFactory)
+        public UnitOfWork(EntityFrameworkMvcDbContext dbContext)
         {
             this.dbContext = dbContext;
-            this.repoFactory = repoFactory;
         }
 
         public void SaveChanges()
@@ -20,9 +18,5 @@
             dbContext.SaveChanges();
         }
 
-        public Repository<T> GetRepo<T>() where T : class
-        {
-            return repoFactory.GetRepo<T>();
-        }
     }
 }

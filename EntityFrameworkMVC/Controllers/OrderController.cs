@@ -12,14 +12,14 @@ namespace EntityFrameworkMVC.Controllers
     public class OrderController : Controller
     {
         private readonly IUnitOfWork unitOfWork;
-        private readonly Repository<Order> orderRepository;
-        private readonly Repository<Customer> customerRepository;
+        private readonly IRepository<Order> orderRepository;
+        private readonly IRepository<Customer> customerRepository;
 
-        public OrderController(IUnitOfWork unitOfWork)
+        public OrderController(IUnitOfWork unitOfWork, IRepository<Order> orderRepository, IRepository<Customer> customerRepository)
         {
             this.unitOfWork = unitOfWork;
-            this.orderRepository = unitOfWork.GetRepo<Order>();
-            this.customerRepository = unitOfWork.GetRepo<Customer>();
+            this.orderRepository = orderRepository;
+            this.customerRepository = customerRepository;
         }
 
         public ActionResult Index()
