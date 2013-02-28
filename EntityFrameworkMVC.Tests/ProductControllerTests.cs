@@ -2,12 +2,13 @@
 {
     using System.Linq;
     using System.Web.Mvc;
+    using System.Web.Routing;
     using Controllers;
     using Models;
     using Models.Repositories;
     using Xunit;
 
-    public class HomeControllerTests
+    public class ProductControllerTests
     {
         [Fact]
         public void tewwet()
@@ -38,6 +39,23 @@
             var result = homeController.Index() as ViewResult;
 
             Assert.NotNull(result.Model);
+        }
+
+        [Fact]
+        public void Create_DataPassedIn_RepositoryAddMethodCalled()
+        {
+            var unitofWork = new Moq.Mock<IUnitOfWork>() { };
+            var prodrepo = new Moq.Mock<IRepository<Product>>();
+
+            unitofWork.Setup(x => x.ProductRepository).Returns(prodrepo.Object);
+
+            var controller = new ProductController(unitofWork.Object);
+
+            var prod = new Product();
+
+            var result = controller.Create(prod) as ViewResult;
+
+            prodrepo.Verify(x => x.Add(prod));
         }
     }
 }
